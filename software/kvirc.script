@@ -1,0 +1,194 @@
+# run with
+# /parse /home/guest/vishvas/progs/kvirc.script
+echo "testing bookz filtering script... plz ignore"
+
+%WindowBookz = $window.open("im","bookzWindow",$context)
+echo "bookzWindowId is %WindowBookz"
+%WindowBookzResults = $window.open("im","bookzResults",$context)
+echo "bookzResults window id is %WindowBookzResults"
+ 
+event(onChannelMessage,channelMessageHandler)
+{
+#	echo "got a channel message: $2"
+	if($str.containsnocase($3,"@find"))
+	{
+		echo -r=%WindowBookz "find command: "$str.rightfromfirst($3," ")
+		halt
+	}
+	else if($str.containsnocase($3,"@booksearch"))
+	{
+		echo -r=%WindowBookz "booksearch command: "$str.rightfromfirst($3," ")
+		halt
+	}
+	else if($str.containsnocase($3,"!"))
+	{
+		echo -r=%WindowBookz "download command: "$str.rightfromfirst($3," ")
+		halt
+	}
+	else if($str.containsnocase($3,"For My List Of:"))
+        {
+                echo -r=%WindowBookz "getMe invitation"
+                halt
+        }
+	else if($str.containsnocase($3,"Total Sent"))
+        {
+                echo -r=%WindowBookz "\"Total Sent\" stat"
+                halt
+        }
+	else if($str.containsnocase($3,"@"))
+        {
+                echo -r=%WindowBookz "list request :"$3
+                halt
+        }
+	else
+	{
+	
+	}
+}
+event(onQueryNotice,queryNoticeHandler)
+{
+#	echo "got a channel message: $2"
+	if($str.containsnocase($3,"@find"))
+	{
+		echo -r=%WindowBookz "find command: "$str.rightfromfirst($3," ")
+		halt
+	}
+	else if($str.containsnocase($3,"@booksearch"))
+	{
+		echo -r=%WindowBookz "booksearch command: "$str.rightfromfirst($3," ")
+		halt
+	}
+	else if($str.containsnocase($3,"!"))
+	{
+		echo -r=%WindowBookz "download command: "$str.rightfromfirst($3," ")
+		halt
+	}
+	else if($str.containsnocase($3,"For My List Of:"))
+        {
+                echo -r=%WindowBookz "getMe invitation"
+                halt
+        }
+	else if($str.containsnocase($3,"Total Sent"))
+        {
+                echo -r=%WindowBookz "\"Total Sent\" stat"
+                halt
+        }
+	else if($str.containsnocase($3,"@"))
+        {
+                echo -r=%WindowBookz "list request :"$3
+                halt
+        }
+	else
+	{
+	
+	}
+}
+event(onCTCPRequest,ctcpReqHandler)
+{
+	if(!$str.contains($4,"DCC")||!$str.contains($3,$me))
+	{
+		echo  -r=%WindowBookz "ctcp request: $0 $1 $2 $3 $4 $5"
+		halt
+	}
+	else
+	{
+	}
+}
+event(onJoin,joinHandler)
+{
+	halt
+}
+event(onQuit,quitHandler)
+{
+        halt
+}
+event(onPart,quitHandler)
+{
+        halt
+}
+
+event(onVoice,quitHandler)
+{
+        halt
+}
+
+event(onUserOp,quitHandler)
+{
+        halt
+}
+event(onQueryNotice,queryNoticeHandler)
+{
+	if($str.contains($3,"!"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+	else if($str.contains($3,"listfile"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+	else if($str.contains($3,"Search Result"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+        else if($str.contains($3,"Common channels for"))
+        {
+		halt
+	}
+	else
+	{
+	}
+}	
+event(onQueryWindowRequest,queryWindowRequestHandler)
+{
+	if($str.contains($3,"!"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+	else if($str.contains($3,"listfile"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+	else if($str.contains($3,"Search Result"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+        else if($str.contains($3,"Common channels for"))
+        {
+		halt
+	}
+	else
+	{
+	}
+	
+}
+event(onQueryMessage,queryMessageHandler)
+{
+	if($str.contains($3,"!"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+	else if($str.contains($3,"listfile"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+	else if($str.contains($3,"Search Result"))
+	{
+		echo  -r=%WindowBookzResults $3
+		halt
+	}
+        else if($str.contains($3,"Common channels for"))
+        {
+		halt
+	}
+	else
+	{
+	}
+}	
