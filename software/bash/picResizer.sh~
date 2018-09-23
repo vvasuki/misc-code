@@ -1,2 +1,0 @@
-#! /bin/bash
-mogrify -resize 66% -quality 60 $1
