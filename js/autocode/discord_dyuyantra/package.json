@@ -1,0 +1,8 @@
+{
+  "name": "status",
+  "author": "sanskrit-coders",
+  "publish": false,
+  "dependencies": {
+    "lib": "latest"
+  }
+}
