@@ -36,11 +36,13 @@ else if(last_status === null) {
   });
 }
 else {
+  var d = new Date(parseInt(last_status)*1000);
+  let time_stamp = d.toLocaleString('en-CA', {timeZone: 'Asia/Kolkata', hour12: false});
   await lib.discord.channels['@0.2.0'].messages.create({
     channel_id: context.params.event.channel_id,
     content: `<@!${context.params.event.member.user.id}>`,
     embed: {
-      description: `**${username}** was last online  <t:${last_status}>`
+      description: `**${username}** - ${time_stamp} IST.`
     }
   });
 }
